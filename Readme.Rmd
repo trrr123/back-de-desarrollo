@@ -6,209 +6,171 @@ output:
 # Colegio Horizonte - Sistema de Gestión Escolar
 
 **Autor:** Yhoner Toro  
-**Asignatura:** Desarrolo web  
-**Descripción:** Implementación de base de datos en múltiples motores (MySQL, PostgreSQL, SQL Server y Oracle) utilizando Docker y herramientas de administración.
+**Asignatura:** Desarrollo Web  
+**Descripción:** Implementación de base de datos en múltiples motores (MySQL, PostgreSQL, SQL Server y Oracle) utilizando Docker y herramientas de administración gráfica.
+
+---
 
 ## Introducción
 
-En este documento se presenta la implementación de una base de datos relacional
-para el sistema Colegio Horizonte en cuatro motores:
+En este documento se presenta la implementación de una base de datos relacional para el sistema **Colegio Horizonte** en cuatro motores de bases de datos:
 
 - MySQL
 - PostgreSQL
 - SQL Server
 - Oracle
 
-Se realiza la creación desde consola (Ubuntu + Docker) y su visualización
-en herramientas gráficas como DBeaver
+La creación de cada esquema se realizó desde la consola de Ubuntu utilizando contenedores Docker, y su administración y visualización se gestionó a través de herramientas gráficas como DBeaver, pgAdmin 4, MySQL Workbench y SQL Server Management Studio.
+
+---
 
 ## 1. Gestión de contenedores Docker
 
-Se verifican y activan los contenedores necesarios:
+Para iniciar el proceso, se verificó el estado de todos los contenedores disponibles en el sistema y se activaron los correspondientes a cada motor de base de datos:
 
--docker ps -a
-
--docker start mysql-server
-
--docker start postgres-server
-
--docker start mssql-server
-
--docker start oracle-xe
-
+```bash
+docker ps -a
+docker start mysql-server
+docker start postgres-server
+docker start mssql-server
+docker start oracle-xe
+```
 
 ![activando contenedores](images/activando.png)
+
+---
 
 # 2. Motor MySQL
 
 ## 2.1 Acceso a MySQL desde Docker
 
-Se accede al motor MySQL ejecutando el siguiente comando desde la terminal de Ubuntu:
+Se accedió al motor MySQL ejecutando el siguiente comando desde la terminal de Ubuntu. Este comando permite ingresar directamente al cliente de MySQL dentro del contenedor en ejecución:
 
-
+```bash
 docker exec -it mysql-server mysql -u root -p
+```
 
 ![acceso mysql](images/acceso mysql.png)
 
+## 2.2 Verificación de bases de datos
 
+Una vez dentro del motor, se ejecutó el siguiente comando para listar las bases de datos existentes y confirmar que el entorno se encontraba operativo:
 
-## Se verifica 
+```sql
 SHOW DATABASES;
+```
 
 ![verificar que esta la base de datos creada](images/show databases.png)
 
+## 2.3 Conexión desde DBeaver
 
-## Realizar enlace con DBeaver
+Para la administración y visualización de la base de datos se estableció la conexión al motor MySQL utilizando DBeaver. Esta herramienta permite gestionar bases de datos de manera gráfica, facilitando la visualización de tablas, relaciones y la ejecución de consultas SQL.
 
-Para la administración y visualización de la base de datos, se realiza la conexión al motor MySQL utilizando la herramienta DBeaver.
+La conexión se configuró con los siguientes parámetros:
 
-DBeaver permite gestionar bases de datos de manera gráfica, facilitando la visualización de tablas, relaciones y ejecución de consultas SQL.
+- **Host:** 172.18.57.107
+- **Puerto:** 3306
+- **Usuario:** root
+- **Contraseña:** (la configurada en el contenedor)
 
-La conexión se realiza utilizando los siguientes parámetros:
-
-- Host: 172.18.57.107
-- Puerto: 3306
-- Base de datos:
-- Usuario: root
-- Contraseña: (la configurada en el contenedor)
-
-Una vez establecida la conexión, se procede a verificar la existencia de la base de datos y sus respectivas tablas.
-
-Posteriormente, se navega por el esquema de la base de datos donde se pueden observar las tablas creadas, su estructura y relaciones.
-
-Esta herramienta permite además ejecutar consultas, generar diagramas entidad-relación y validar la integridad de la base de datos de forma visual.
-
-### Evidencia
+Una vez establecida la conexión, se verificó la existencia de la base de datos y sus tablas. DBeaver permitió además generar diagramas entidad-relación y validar la integridad del modelo de datos de forma visual.
 
 ![Conexión en DBeaver](images/enlace.png)
 
+---
 
-## Creación de tablas en MySQL
+## 2.4 Creación de tablas en MySQL
 
-Para el desarrollo del sistema Colegio Horizonte se diseñó un conjunto de tablas que permiten gestionar la información de estudiantes, acudientes, grupos, matrículas, cursos, asistencia, calificaciones y pagos.Teniendo en cuenta las reglas dichas por el profesor el los videos de apoyo
-
-Estas tablas están relacionadas entre sí mediante llaves primarias y foráneas, garantizando la integridad referencial y el correcto funcionamiento del sistema.
-
-A continuación, se presenta la creación de las tablas en la base de datos:
-
+Para el sistema Colegio Horizonte se diseñó un conjunto de ocho tablas interrelacionadas mediante llaves primarias y foráneas, garantizando la integridad referencial del modelo. A continuación se documenta la creación de cada tabla.
 
 ### Tabla: students
 
-Para esta primera tabla quise crearla en ubuntu para probar la terminal 
-
+La tabla **students** almacena la información personal de cada estudiante registrado en el sistema. Fue la primera tabla en crearse, dado que otras tablas dependen de ella mediante llave foránea. Se optó por crearla directamente desde la terminal de Ubuntu para familiarizarse con el entorno de consola.
 
 ![tabla students](images/students.png)
 
-la tabla se creo con exito y fue reflejada al actualizar en dbeaver
+La tabla fue creada exitosamente y se reflejó de inmediato al actualizar el explorador de DBeaver.
 
-![tabla students](images/tabla students.png)
+![tabla students en DBeaver](images/tabla students.png)
 
 ### Tabla: guardians
 
-La tabla **guardians** almacena la información de los acudientes o responsables de los estudiantes.
-
-Se relaciona con la tabla **students** mediante una llave foránea, permitiendo identificar qué acudiente pertenece a cada estudiante.
+La tabla **guardians** almacena la información de los acudientes o responsables de cada estudiante. Se relaciona con la tabla **students** mediante una llave foránea, permitiendo asociar uno o más acudientes a un estudiante específico.
 
 ![tabla guardians](images/guardians.png)
 
-### Tabla: groups
+### Tabla: school_groups
 
-La tabla **groups** almacena la información de los grupos o salones asignados a los estudiantes dentro del colegio.
-
-Permite organizar a los estudiantes por grado y periodo académico, facilitando la gestión de matrículas, cursos y asistencia.
+La tabla **school_groups** almacena la información de los grupos o salones del colegio, organizados por grado y periodo académico. Esta tabla es referenciada por **enrollments** y **courses**, siendo un eje central del modelo.
 
 ![tabla groups](images/groups.png)
 
-
 ### Tabla: enrollments
 
-La tabla **enrollments** registra las matrículas de los estudiantes, relacionando cada estudiante con un grupo específico.
-
-Esta tabla es fundamental, ya que conecta la información académica y permite gestionar procesos como asistencia, calificaciones y pagos.
+La tabla **enrollments** registra las matrículas de los estudiantes, vinculando cada estudiante con un grupo específico. Es una tabla fundamental del sistema, ya que conecta la información académica y habilita la gestión de asistencia, calificaciones y pagos.
 
 ![tabla enrollments](images/enrollments.png)
 
 ### Tabla: courses
 
-La tabla **courses** almacena la información de las asignaturas o materias impartidas en el colegio.
-
-Cada curso está asociado a un grupo, lo que permite organizar las clases y gestionar posteriormente la asistencia y calificaciones de los estudiantes.
+La tabla **courses** almacena las asignaturas o materias impartidas en el colegio. Cada curso está asociado a un grupo, lo que permite organizar la carga académica y gestionar la asistencia y calificaciones de los estudiantes matriculados.
 
 ![tabla courses](images/courses.png)
 
-
 ### Tabla: attendances
 
-La tabla **attendances** registra la asistencia de los estudiantes en cada curso y fecha específica.
+La tabla **attendances** registra la asistencia diaria de los estudiantes por curso y fecha. Controla el estado de cada registro mediante los valores `present`, `absent`, `late` y `excused`, siendo fundamental para el seguimiento académico.
 
-Permite llevar control del estado de asistencia (presente, ausente, tarde o excusado), siendo fundamental para el seguimiento académico.
-
-
-![tabla attendaces](images/attendances.png)
-
+![tabla attendances](images/attendances.png)
 
 ### Tabla: grades
 
-La tabla **grades** almacena las calificaciones de los estudiantes en cada curso y periodo académico.
-
-Permite llevar el control del rendimiento académico, asociando cada nota a una matrícula y a una asignatura específica.
+La tabla **grades** almacena las calificaciones obtenidas por los estudiantes en cada curso y periodo académico. Permite llevar un control detallado del rendimiento académico, asociando cada nota a una matrícula y a una asignatura específica.
 
 ![tabla grades](images/grades.png)
 
 ### Tabla: tuition_payments
 
-La tabla **tuition_payments** registra los pagos realizados por los estudiantes asociados a su matrícula.
-
-Permite llevar el control financiero del sistema, incluyendo información como método de pago, monto, fechas y estado del pago.
-
+La tabla **tuition_payments** registra los pagos de mensualidad realizados por cada estudiante, vinculándolos a su matrícula. Incluye información como método de pago, monto, fechas de pago y vencimiento, y el estado del cobro.
 
 ![tabla payments](images/payments.png)
 
+---
 
-## Diagrama entidad-relación Motor dbeaver
+## 2.5 Diagrama entidad-relación en DBeaver
 
-Una vez creadas todas las tablas, se procede a generar el diagrama entidad-relación 
+Una vez creadas todas las tablas, se generó el diagrama entidad-relación desde DBeaver. Este diagrama permite visualizar gráficamente la estructura del modelo, mostrando las relaciones entre entidades mediante llaves primarias y foráneas.
 
-Este diagrama permite visualizar de manera gráfica la estructura de la base de datos, mostrando las tablas y las relaciones existentes entre ellas mediante llaves primarias y foráneas.
+En el modelo se observa que **students** actúa como entidad principal, relacionándose con **guardians** y **enrollments**. A su vez, **enrollments** conecta con **school_groups** para ubicar al estudiante en un grupo. Las tablas **attendances** y **grades** dependen tanto de la matrícula como del curso, mientras que **tuition_payments** se vincula directamente con **enrollments** para el control financiero.
 
-En el modelo se observa que la tabla **students** actúa como entidad principal, relacionándose con **guardians** y **enrollments**. A su vez, **enrollments** conecta con **groups**, lo que permite ubicar a cada estudiante en un grupo específico.
+![Diagrama ER en DBeaver](images/diagrama.png)
 
-Las tablas **courses** se relacionan con **groups**, y a partir de estas se gestionan procesos académicos como la asistencia (**attendances**) y las calificaciones (**grades**), las cuales también dependen de la matrícula del estudiante.
+---
 
-Finalmente, la tabla **tuition_payments** se encuentra vinculada a **enrollments**, permitiendo llevar el control de los pagos asociados a cada estudiante.
-
-Este diagrama facilita la comprensión del modelo de datos, evidenciando la integridad referencial y la correcta organización de las entidades dentro del sistema.
-
-### Evidencia
-
-![Diagrama ER](images/diagrama.png)
-
-# MySQL - Creación y visualización del modelo
+# 2.6 MySQL Workbench
 
 ## Inicio del entorno
 
-Se inicia el servicio de Docker en el sistema Ubuntu con el fin de levantar los contenedores que contienen los motores de bases de datos.
+Se verificó que el contenedor de MySQL estuviera en ejecución desde Ubuntu, confirmando la disponibilidad del servicio para conexiones externas.
 
-Posteriormente, se verifica que el contenedor de MySQL se encuentre en ejecución, asegurando que el servicio esté disponible para conexiones externas.
+![servidor MySQL activo](images/server msql.png)
 
-![conexcion](images/server msql.png)
+Con la IP del servidor identificada, se procedió a establecer la conexión desde **MySQL Workbench**, herramienta oficial de Oracle para la administración de bases de datos MySQL.
 
-Una vez activado el server y sabiendo nuesta ip procedemos a realizar la conexion con workbench 
+![conexión en Workbench](images/conexcion work.png)
 
-![enlace](images/conexcion work.png)
+Finalmente, se visualizó el diagrama entidad-relación desde Workbench para verificar que el modelo de datos se encontraba correctamente estructurado.
 
+![Diagrama ER en Workbench](images/diagrama work.png)
 
-luego se muestra el diagrama er para verificar que esta bien la base de datos 
+---
 
-![Diagrama ER](images/diagrama work.png)
+# 3. Motor PostgreSQL
 
+## 3.1 Inicio del entorno
 
-# PostgreSQL — Creación y Conexión
+Se inició el contenedor de PostgreSQL desde la terminal de Ubuntu, verificando que el servicio se encontrara activo y disponible para recibir conexiones externas:
 
-## Inicio del entorno
-
-Se inicia el contenedor de PostgreSQL utilizando Docker desde el entorno Ubuntu,
-verificando que el servicio se encuentre activo y disponible para conexiones externas.
 ```bash
 docker start postgres-server
 docker ps
@@ -216,40 +178,211 @@ docker ps
 
 ![Inicio del contenedor Docker](images/creacion.png)
 
----
+## 3.2 Conexión desde DBeaver
 
-## Conexión desde DBeaver
-
-Una vez confirmado que el contenedor está en ejecución, se establece la conexión
-a la base de datos desde DBeaver, configurando los parámetros del host, puerto
-y credenciales correspondientes.
+Con el contenedor en ejecución, se estableció la conexión a la base de datos desde DBeaver configurando los parámetros de host, puerto y credenciales correspondientes al contenedor.
 
 ![Conexión en DBeaver](images/dbeaver.png)
 
----
+## 3.3 Diagrama de tablas en DBeaver
 
-## Diagrama de tablas en DBeaver
-
-Con la conexión activa, se visualiza el esquema de la base de datos y el diagrama
-de las tablas creadas directamente desde el explorador de DBeaver.
+Con la conexión activa, se exploró el esquema de la base de datos desde DBeaver, verificando la presencia de todas las tablas creadas y sus relaciones.
 
 ![Diagrama de tablas en DBeaver](images/tabla%20dbeaver.png)
 
----
+## 3.4 Conexión desde pgAdmin 4
 
-## Conexión desde pgAdmin 4
-
-Se realiza adicionalmente la conexión a la misma instancia de PostgreSQL
-utilizando pgAdmin 4, registrando el servidor con los datos del contenedor Docker.
+Se realizó adicionalmente la conexión a la misma instancia de PostgreSQL utilizando **pgAdmin 4**, registrando el servidor con los datos del contenedor Docker. Esta herramienta ofrece una interfaz web completa para la administración del motor PostgreSQL.
 
 ![Conexión en pgAdmin 4](images/enlace%20ph.png)
 
----
+## 3.5 Diagrama ER en pgAdmin 4
 
-## Diagrama ER en pgAdmin 4
-
-Finalmente, se genera el diagrama entidad-relación (ER) desde pgAdmin 4,
-permitiendo visualizar de forma gráfica la estructura y las relaciones
-entre las tablas de la base de datos.
+Desde pgAdmin 4 se generó el diagrama entidad-relación, permitiendo visualizar de forma gráfica la estructura completa del modelo y las relaciones entre sus tablas.
 
 ![Diagrama ER en pgAdmin 4](images/diagrama%20pg.png)
+
+---
+
+# 4. Motor SQL Server
+
+## 4.1 Levantamiento del contenedor
+
+Se desplegó el contenedor de SQL Server 2022 utilizando la imagen oficial de Microsoft. Durante el proceso se presentó un error inicial relacionado con la política de contraseñas del motor, el cual fue resuelto estableciendo una contraseña que cumpliera los requisitos de complejidad (mayúsculas, minúsculas, números y símbolos).
+
+```bash
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=MiPassword123!" \
+  -p 1433:1433 --name sqlserver -d \
+  mcr.microsoft.com/mssql/server:2022-latest
+
+docker ps
+```
+
+![contenedor SQL Server activo](images/Captura de pantalla 2026-03-23 161107.png)
+
+## 4.2 Acceso al motor desde la terminal
+
+Se accedió al motor utilizando `sqlcmd`, la herramienta de línea de comandos de SQL Server. Dado que la versión 2022 instala las herramientas en la ruta `/opt/mssql-tools18/`, fue necesario apuntar a esa ubicación. El flag `-No` desactiva la validación del certificado SSL, habitual en entornos de desarrollo con certificados autofirmados:
+
+```bash
+docker exec -it sqlserver /opt/mssql-tools18/bin/sqlcmd \
+  -S localhost -U sa -P "MiPassword123!" -No
+```
+
+![acceso sqlcmd](images/Captura de pantalla 2026-03-23 161448.png)
+
+## 4.3 Creación de la base de datos y tablas
+
+Se creó la base de datos `colegio_horizonte` y las 8 tablas del sistema escolar. El script original en PostgreSQL fue adaptado a T-SQL, reemplazando `SERIAL` por `IDENTITY(1,1)`, `TIMESTAMP` por `DATETIME` y `CURRENT_TIMESTAMP` por `GETDATE()`. Al finalizar, se verificó la existencia de todas las tablas con la siguiente consulta:
+
+```sql
+CREATE DATABASE colegio_horizonte;
+GO
+USE colegio_horizonte;
+GO
+
+SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'
+GO
+```
+
+![tablas creadas en SQL Server](images/Captura de pantalla 2026-03-23 161639.png)
+
+## 4.4 Conexión desde DBeaver
+
+Se configuró la conexión en DBeaver con los parámetros del servidor SQL Server. Fue necesario activar la opción **Trust Server Certificate** para evitar errores de validación del certificado autofirmado del contenedor:
+
+- **Host:** `172.18.57.107`
+- **Port:** `1433`
+- **Database:** `colegio_horizonte`
+- **Authentication:** SQL Server Authentication
+- **Usuario:** `sa`
+
+![configuración DBeaver SQL Server](images/Captura de pantalla 2026-03-23 162002.png)
+
+Una vez establecida la conexión, se verificaron las tablas en el explorador y se generó el diagrama entidad-relación:
+
+![tablas en DBeaver](images/Captura de pantalla 2026-03-23 162014.png)
+
+![diagrama ER en DBeaver](images/Captura de pantalla 2026-03-23 162221.png)
+
+## 4.5 Conexión desde SQL Server Management Studio (SSMS)
+
+Se realizó adicionalmente la conexión desde **SSMS**, herramienta oficial de Microsoft para la administración de SQL Server. La configuración incluyó el uso de autenticación SQL Server y la activación del certificado de confianza:
+
+- **Servidor:** `172.18.57.107`
+- **Autenticación:** SQL Server
+- **Usuario:** `sa`
+- **Cifrado:** Opcional
+- **Confiar en certificado:** ✅
+
+![configuración SSMS](images/Captura de pantalla 2026-03-23 162428.png)
+
+En el explorador de objetos de SSMS se confirmó la presencia de las 8 tablas bajo el esquema `dbo`:
+
+![tablas en SSMS](images/Captura de pantalla 2026-03-23 162451.png)
+
+Finalmente, se generó el diagrama de base de datos desde el diseñador de SSMS, visualizando de forma gráfica todas las relaciones del modelo:
+
+![diagrama en SSMS](images/Captura de pantalla 2026-03-23 162725.png)
+
+---
+
+# 5. Motor Oracle
+
+## 5.1 Levantamiento del contenedor
+
+Se verificó el estado del contenedor de Oracle y se procedió a iniciarlo. Para recuperar la contraseña del usuario administrador `sys`, se consultó la configuración del contenedor mediante `docker inspect`, lo que permitió identificar que la contraseña configurada era `123456789`:
+
+```bash
+docker start oracle-xe
+docker inspect oracle-xe | grep -i password
+```
+
+![contenedor Oracle activo](images/Captura de pantalla 2026-03-23 171352.png)
+
+## 5.2 Acceso al motor como administrador
+
+Con las credenciales identificadas, se accedió al motor Oracle como `sysdba` a través de SQL*Plus. La conexión fue exitosa, confirmando la disponibilidad de **Oracle Database 21c Express Edition**:
+
+```bash
+docker exec -it oracle-xe sqlplus sys/123456789@localhost:1521/XE as sysdba
+```
+
+![acceso como sysdba](images/Captura de pantalla 2026-03-23 171348.png)
+
+## 5.3 Creación del usuario y esquema
+
+En Oracle, a diferencia de los demás motores, no se crean bases de datos independientes por proyecto. En su lugar, cada usuario representa un esquema propio dentro de la instancia. Se creó el usuario `colegio_horizonte` con su contraseña y se le otorgaron los permisos necesarios para operar:
+
+```sql
+CREATE USER colegio_horizonte IDENTIFIED BY colegio123;
+GRANT CONNECT, RESOURCE TO colegio_horizonte;
+GRANT UNLIMITED TABLESPACE TO colegio_horizonte;
+```
+
+El motor respondió con `User created` y `Grant succeeded`, confirmando la correcta creación del esquema.
+
+![usuario creado en Oracle XE](images/Captura de pantalla 2026-03-23 171628.png)
+
+## 5.4 Configuración de permisos en XEPDB1
+
+Al intentar conectarse desde DBeaver, se presentó el error `ORA-01045: user COLEGIO_HORIZONTE lacks CREATE SESSION privilege`. Esto ocurrió porque DBeaver se conecta por defecto a la base de datos pluggable **XEPDB1**, que es un contenedor lógico independiente dentro de la instancia Oracle, diferente a la base de datos raíz `XE`.
+
+Para resolverlo, se ingresó como `sysdba` directamente en `XEPDB1` y se otorgaron nuevamente los permisos necesarios:
+
+```bash
+docker exec -it oracle-xe sqlplus sys/123456789@localhost:1521/XEPDB1 as sysdba
+```
+
+```sql
+GRANT CREATE SESSION TO colegio_horizonte;
+GRANT CONNECT, RESOURCE TO colegio_horizonte;
+GRANT UNLIMITED TABLESPACE TO colegio_horizonte;
+```
+
+Los tres comandos respondieron con `Grant succeeded`, permitiendo continuar el proceso desde las herramientas cliente.
+
+![permisos otorgados en XEPDB1](images/Captura de pantalla 2026-03-23 173111.png)
+
+## 5.5 Creación de las tablas
+
+Con el usuario correctamente configurado en `XEPDB1`, se procedió a crear las 8 tablas del sistema. El script fue adaptado desde PostgreSQL a la sintaxis de Oracle, realizando las siguientes conversiones:
+
+| PostgreSQL | Oracle |
+|---|---|
+| `SERIAL` | `NUMBER GENERATED ALWAYS AS IDENTITY` |
+| `VARCHAR` | `VARCHAR2` |
+| `TEXT` | `CLOB` |
+| `SMALLINT` | `NUMBER(2)` |
+| `NUMERIC(n,m)` | `NUMBER(n,m)` |
+
+Cada tabla fue ejecutada como una sola línea de comando para evitar los errores de sintaxis propios del intérprete interactivo de SQL*Plus, respetando el orden de creación según las dependencias de llaves foráneas.
+
+![tablas creadas en Oracle](images/Captura de pantalla 2026-03-23 171904.png)
+
+## 5.6 Conexión desde DBeaver
+
+Con los permisos correctamente configurados, se estableció la conexión en DBeaver apuntando a la base de datos pluggable `XEPDB1`:
+
+- **Host:** `172.18.57.107`
+- **Port:** `1521`
+- **Database:** `XEPDB1`
+- **Connection Type:** Service Name
+- **Usuario:** `colegio_horizonte`
+- **Contraseña:** `colegio123`
+
+![configuración de conexión Oracle en DBeaver](images/Captura de pantalla 2026-03-23 173246.png)
+
+La conexión fue exitosa. En el explorador de bases de datos se visualizó el esquema `COLEGIO_HORIZONTE` con sus 8 tablas correctamente listadas bajo la carpeta **Tablas**:
+
+![tablas del esquema Oracle en DBeaver](images/Captura de pantalla 2026-03-23 173236.png)
+
+Se generó el diagrama entidad-relación desde DBeaver, el cual mostró de forma gráfica todas las relaciones del modelo, incluyendo las llaves foráneas entre `ENROLLMENTS`, `STUDENTS`, `SCHOOL_GROUPS`, `COURSES`, `ATTENDANCES`, `GRADES`, `TUITION_PAYMENTS` y `GUARDIANS`:
+
+![diagrama ER Oracle en DBeaver](images/Captura de pantalla 2026-03-23 173906.png)
+
+## 5.7 Verificación final del esquema
+
+Se abrió la vista de propiedades del esquema `COLEGIO_HORIZONTE` en DBeaver, donde se confirmó que las 8 tablas fueron creadas correctamente el día `2026-03-23` y se encuentran almacenadas en el tablespace `USERS`:
+
+![propiedades del esquema COLEGIO_HORIZONTE](images/Captura de pantalla 2026-03-23 173938.png)
