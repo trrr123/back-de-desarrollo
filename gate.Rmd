@@ -1,0 +1,124 @@
+# Sistema Web de Gestión Escolar
+## Colegio Horizonte
+ 
+---
+ 
+## 1. Acta del Proyecto
+ 
+### Información General
+ 
+| Elemento | Detalle |
+|----------|---------|
+| **Nombre del proyecto** | Sistema Web de Gestión Escolar para el Colegio Horizonte |
+| **Patrocinador** | Colegio Horizonte |
+| **Gerente del proyecto** | Yhoner Andrés Toro Madera |
+| **Tipo de proyecto** | Desarrollo de Software Web – Sistema de Información |
+| **Fecha de inicio estimada** | 2026 |
+| **Fecha estimada de finalización** | 2026 |
+ 
+### Descripción del Proyecto
+ 
+El proyecto consiste en el diseño y desarrollo de un sistema web que permita gestionar de manera centralizada los procesos académicos y administrativos del Colegio Horizonte. El sistema estará enfocado en la administración de estudiantes, acudientes, cursos, grupos, matrículas, asistencia, calificaciones y pagos de pensión.
+ 
+La plataforma permitirá registrar, actualizar y consultar información académica y financiera en tiempo real, garantizando la integridad de los datos y facilitando el control de las operaciones del colegio. Además, el sistema permitirá generar reportes por rangos de fechas, responsables y estados de los registros, lo que facilitará la toma de decisiones administrativas.
+ 
+### Objetivo General
+ 
+Desarrollar un sistema web basado en una base de datos relacional que permita gestionar de forma eficiente las matrículas, notas, asistencia y pagos del Colegio Horizonte.
+ 
+### Beneficios Esperados
+ 
+- Centralización de la información académica y administrativa.
+- Reducción de errores en el manejo de registros.
+- Mayor control sobre matrículas, asistencia y calificaciones.
+- Seguimiento de pagos de pensiones de los estudiantes.
+- Generación de reportes para la gestión administrativa.
+- Soporte de auditoría y trazabilidad de las operaciones.
+ 
+### Reglas de Negocio
+ 
+- Toda transacción debe tener estado y registro de fecha.
+- No se permiten registros detalle sin su registro maestro correspondiente.
+- Se garantizará la integridad referencial mediante claves primarias (PK) y claves foráneas (FK).
+- Se aplicarán restricciones de validación cuando sea necesario.
+- El sistema debe permitir reportes por fechas y responsables.
+ 
+### Criterios de Éxito
+ 
+El proyecto será exitoso cuando:
+ 
+- El sistema permita gestionar matrículas, asistencia, notas y pagos.
+- La información esté centralizada en una base de datos.
+- Los usuarios puedan consultar y generar reportes fácilmente.
+- El sistema permita controlar estados y trazabilidad de las operaciones.
+ 
+---
+ 
+## 2. Nivel Micro — Scrum
+ 
+Durante la fase inicial del proyecto se realizó la estructuración del **Sprint 0**, aplicando el marco de trabajo Scrum con el objetivo de definir las funcionalidades principales del sistema y organizar el trabajo de desarrollo. Esta etapa permitió establecer la visión funcional del sistema, identificar las necesidades de los usuarios y estructurar el backlog inicial del proyecto.
+ 
+### Épica Principal
+ 
+> **"Gestión integral de la información académica y administrativa del Colegio Horizonte mediante una plataforma web que permita administrar estudiantes, matrículas, asistencia, calificaciones y pagos de pensión."**
+ 
+Esta épica agrupa todas las funcionalidades principales necesarias para soportar la operación del colegio.
+ 
+### Historias de Usuario
+ 
+| Usuario | Historia de Usuario | Prioridad |
+|---------|---------------------|-----------|
+| Administrador | Como administrador, quiero registrar estudiantes para mantener actualizada la base de datos del colegio. | Alta |
+| Administrador | Como administrador, quiero registrar acudientes para asociarlos con los estudiantes. | Alta |
+| Operador | Como operador, quiero gestionar cursos para organizar la estructura académica. | Alta |
+| Operador | Como operador, quiero registrar matrículas para controlar la inscripción de los estudiantes. | Alta |
+| Docente | Como docente, quiero registrar asistencia para llevar control de la participación de los estudiantes. | Media |
+| Docente | Como docente, quiero registrar calificaciones para evaluar el desempeño académico. | Media |
+| Administrativo | Como administrativo, quiero registrar pagos de pensión para controlar el estado financiero de los estudiantes. | Media |
+| Supervisor | Como supervisor, quiero consultar reportes por fechas para analizar el estado de la operación del colegio. | Baja |
+ 
+### Priorización del Backlog
+ 
+Las historias de usuario fueron priorizadas teniendo en cuenta su impacto en el funcionamiento del sistema:
+ 
+1. **Alta prioridad:** Registro de estudiantes, acudientes, cursos y matrículas, ya que constituyen la base estructural del sistema.
+2. **Media prioridad:** Asistencia, calificaciones y pagos, que complementan la operación académica y administrativa.
+3. **Baja prioridad:** Consultas y generación de reportes.
+ 
+### Estados del Flujo de Trabajo
+ 
+| Estado | Descripción |
+|--------|-------------|
+| Pendiente | Historia de usuario aún no iniciada. |
+| En progreso | Historia de usuario en desarrollo. |
+| En revisión | Funcionalidad en proceso de validación o pruebas. |
+| Completado | Funcionalidad finalizada y aprobada. |
+ 
+---
+ 
+## 3. Nivel Técnico
+ 
+En el nivel técnico del proyecto se establecieron las bases necesarias para iniciar el desarrollo del sistema, organizadas en cuatro actividades principales:
+ 
+| Elemento | Descripción |
+|----------|-------------|
+| Entorno de desarrollo | Preparación y configuración de las herramientas necesarias para el desarrollo del sistema. |
+| Estructura inicial del proyecto | Creación de la organización básica de carpetas y archivos del proyecto. |
+| Repositorio del proyecto | Configuración del repositorio para el control de versiones del código. |
+| Documento técnico preliminar | Elaboración de un documento con los aspectos técnicos iniciales del sistema. |
+ 
+### Entorno de Desarrollo
+ 
+Para el desarrollo del sistema se definió un entorno tecnológico basado en herramientas modernas de desarrollo web, el cual permitirá construir, gestionar y mantener el proyecto de forma organizada y escalable.
+ 
+| Componente | Tecnología |
+|------------|------------|
+| Backend | Django + Django REST Framework |
+| Frontend | HTML, CSS, Bootstrap o React |
+| Base de datos | MySQL (ejecutado en Docker) |
+| Control de versiones | Git |
+| IDE | Visual Studio Code (VS Code) |
+ 
+El backend estará desarrollado con **Django** junto con **Django REST Framework**, lo que permitirá exponer servicios API para la comunicación con el frontend. Para la interfaz de usuario se emplearán tecnologías como **HTML, CSS y Bootstrap**, con la posibilidad de usar **React** para componentes más dinámicos.
+ 
+La base de datos **MySQL** será ejecutada dentro de un contenedor **Docker**, permitiendo un entorno aislado, portable y fácil de configurar. El proyecto utilizará **Git** para el control de versiones y **Visual Studio Code** como entorno de desarrollo integrado.
