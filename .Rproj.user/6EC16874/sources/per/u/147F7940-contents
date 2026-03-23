@@ -1,0 +1,20 @@
+# Colegio Horizonte - Sistema de Gestión Escolar
+
+**Autor:** Yhoner Toro  
+**Asignatura:** Bases de Datos  
+**Descripción:** Implementación de base de datos en múltiples motores (MySQL, PostgreSQL, SQL Server y Oracle) utilizando Docker y herramientas de administración.
+
+## Introducción
+
+En este documento se presenta la implementación de una base de datos relacional
+para el sistema Colegio Horizonte en cuatro motores:
+
+- MySQL
+- PostgreSQL
+- SQL Server
+- Oracle
+
+Se realiza la creación desde consola (Ubuntu + Docker) y su visualización
+en herramientas gráficas como DBeaver.
+
+![Activando contenedores](images/activando.png)

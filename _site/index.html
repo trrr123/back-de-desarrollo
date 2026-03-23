@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>index.knit</title>
+
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<div id="colegio-horizonte---sistema-de-gestión-escolar"
+class="section level1">
+<h1>Colegio Horizonte - Sistema de Gestión Escolar</h1>
+<p><strong>Autor:</strong> Yhoner Toro<br />
+<strong>Asignatura:</strong> Desarrolo web<br />
+<strong>Descripción:</strong> Implementación de base de datos en
+múltiples motores (MySQL, PostgreSQL, SQL Server y Oracle) utilizando
+Docker y herramientas de administración.</p>
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p>En este documento se presenta la implementación de una base de datos
+relacional para el sistema Colegio Horizonte en cuatro motores:</p>
+<ul>
+<li>MySQL</li>
+<li>PostgreSQL</li>
+<li>SQL Server</li>
+<li>Oracle</li>
+</ul>
+<p>Se realiza la creación desde consola (Ubuntu + Docker) y su
+visualización en herramientas gráficas como DBeaver</p>
+</div>
+<div id="gestión-de-contenedores-docker" class="section level2">
+<h2>1. Gestión de contenedores Docker</h2>
+<p>Se verifican y activan los contenedores necesarios:</p>
+<p>-docker ps -a</p>
+<p>-docker start mysql-server</p>
+<p>-docker start postgres-server</p>
+<p>-docker start mssql-server</p>
+<p>-docker start oracle-xe</p>
+<div class="float">
+<img src="images/activando.png" alt="activando contenedores" />
+<div class="figcaption">activando contenedores</div>
+</div>
+</div>
+</div>
+<div id="motor-mysql" class="section level1">
+<h1>2. Motor MySQL</h1>
+<div id="acceso-a-mysql-desde-docker" class="section level2">
+<h2>2.1 Acceso a MySQL desde Docker</h2>
+<p>Se accede al motor MySQL ejecutando el siguiente comando desde la
+terminal de Ubuntu:</p>
+<p>docker exec -it mysql-server mysql -u root -p</p>
+<div class="float">
+<img src="images/acceso%20mysql.png" alt="acceso mysql" />
+<div class="figcaption">acceso mysql</div>
+</div>
+</div>
+<div id="se-verifica" class="section level2">
+<h2>Se verifica</h2>
+<p>SHOW DATABASES;</p>
+<div class="float">
+<img src="images/show%20databases.png"
+alt="verificar que esta la base de datos creada" />
+<div class="figcaption">verificar que esta la base de datos creada</div>
+</div>
+</div>
+<div id="realizar-enlace-con-dbeaver" class="section level2">
+<h2>Realizar enlace con DBeaver</h2>
+<p>Para la administración y visualización de la base de datos, se
+realiza la conexión al motor MySQL utilizando la herramienta
+DBeaver.</p>
+<p>DBeaver permite gestionar bases de datos de manera gráfica,
+facilitando la visualización de tablas, relaciones y ejecución de
+consultas SQL.</p>
+<p>La conexión se realiza utilizando los siguientes parámetros:</p>
+<ul>
+<li>Host: 172.18.57.107</li>
+<li>Puerto: 3306</li>
+<li>Base de datos:</li>
+<li>Usuario: root</li>
+<li>Contraseña: (la configurada en el contenedor)</li>
+</ul>
+<p>Una vez establecida la conexión, se procede a verificar la existencia
+de la base de datos y sus respectivas tablas.</p>
+<p>Posteriormente, se navega por el esquema de la base de datos donde se
+pueden observar las tablas creadas, su estructura y relaciones.</p>
+<p>Esta herramienta permite además ejecutar consultas, generar diagramas
+entidad-relación y validar la integridad de la base de datos de forma
+visual.</p>
+<div id="evidencia" class="section level3">
+<h3>Evidencia</h3>
+<div class="float">
+<img src="images/enlace.png" alt="Conexión en DBeaver" />
+<div class="figcaption">Conexión en DBeaver</div>
+</div>
+</div>
+</div>
+<div id="creación-de-tablas-en-mysql" class="section level2">
+<h2>Creación de tablas en MySQL</h2>
+<p>Para el desarrollo del sistema Colegio Horizonte se diseñó un
+conjunto de tablas que permiten gestionar la información de estudiantes,
+acudientes, grupos, matrículas, cursos, asistencia, calificaciones y
+pagos.Teniendo en cuenta las reglas dichas por el profesor el los videos
+de apoyo</p>
+<p>Estas tablas están relacionadas entre sí mediante llaves primarias y
+foráneas, garantizando la integridad referencial y el correcto
+funcionamiento del sistema.</p>
+<p>A continuación, se presenta la creación de las tablas en la base de
+datos:</p>
+<div id="tabla-students" class="section level3">
+<h3>Tabla: students</h3>
+<p>Para esta primera tabla quise crearla en ubuntu para probar la
+terminal</p>
+<div class="float">
+<img src="images/students.png" alt="tabla students" />
+<div class="figcaption">tabla students</div>
+</div>
+<p>la tabla se creo con exito y fue reflejada al actualizar en
+dbeaver</p>
+<div class="float">
+<img src="images/tabla%20students.png" alt="tabla students" />
+<div class="figcaption">tabla students</div>
+</div>
+</div>
+<div id="tabla-guardians" class="section level3">
+<h3>Tabla: guardians</h3>
+<p>La tabla <strong>guardians</strong> almacena la información de los
+acudientes o responsables de los estudiantes.</p>
+<p>Se relaciona con la tabla <strong>students</strong> mediante una
+llave foránea, permitiendo identificar qué acudiente pertenece a cada
+estudiante.</p>
+<div class="float">
+<img src="images/guardians.png" alt="tabla guardians" />
+<div class="figcaption">tabla guardians</div>
+</div>
+</div>
+<div id="tabla-groups" class="section level3">
+<h3>Tabla: groups</h3>
+<p>La tabla <strong>groups</strong> almacena la información de los
+grupos o salones asignados a los estudiantes dentro del colegio.</p>
+<p>Permite organizar a los estudiantes por grado y periodo académico,
+facilitando la gestión de matrículas, cursos y asistencia.</p>
+<div class="float">
+<img src="images/groups.png" alt="tabla groups" />
+<div class="figcaption">tabla groups</div>
+</div>
+</div>
+<div id="tabla-enrollments" class="section level3">
+<h3>Tabla: enrollments</h3>
+<p>La tabla <strong>enrollments</strong> registra las matrículas de los
+estudiantes, relacionando cada estudiante con un grupo específico.</p>
+<p>Esta tabla es fundamental, ya que conecta la información académica y
+permite gestionar procesos como asistencia, calificaciones y pagos.</p>
+<div class="float">
+<img src="images/enrollments.png" alt="tabla enrollments" />
+<div class="figcaption">tabla enrollments</div>
+</div>
+</div>
+<div id="tabla-courses" class="section level3">
+<h3>Tabla: courses</h3>
+<p>La tabla <strong>courses</strong> almacena la información de las
+asignaturas o materias impartidas en el colegio.</p>
+<p>Cada curso está asociado a un grupo, lo que permite organizar las
+clases y gestionar posteriormente la asistencia y calificaciones de los
+estudiantes.</p>
+<div class="float">
+<img src="images/courses.png" alt="tabla courses" />
+<div class="figcaption">tabla courses</div>
+</div>
+</div>
+<div id="tabla-attendances" class="section level3">
+<h3>Tabla: attendances</h3>
+<p>La tabla <strong>attendances</strong> registra la asistencia de los
+estudiantes en cada curso y fecha específica.</p>
+<p>Permite llevar control del estado de asistencia (presente, ausente,
+tarde o excusado), siendo fundamental para el seguimiento académico.</p>
+<div class="float">
+<img src="images/attendances.png" alt="tabla attendaces" />
+<div class="figcaption">tabla attendaces</div>
+</div>
+</div>
+<div id="tabla-grades" class="section level3">
+<h3>Tabla: grades</h3>
+<p>La tabla <strong>grades</strong> almacena las calificaciones de los
+estudiantes en cada curso y periodo académico.</p>
+<p>Permite llevar el control del rendimiento académico, asociando cada
+nota a una matrícula y a una asignatura específica.</p>
+<div class="float">
+<img src="images/grades.png" alt="tabla grades" />
+<div class="figcaption">tabla grades</div>
+</div>
+</div>
+<div id="tabla-tuition_payments" class="section level3">
+<h3>Tabla: tuition_payments</h3>
+<p>La tabla <strong>tuition_payments</strong> registra los pagos
+realizados por los estudiantes asociados a su matrícula.</p>
+<p>Permite llevar el control financiero del sistema, incluyendo
+información como método de pago, monto, fechas y estado del pago.</p>
+<div class="float">
+<img src="images/payments.png" alt="tabla payments" />
+<div class="figcaption">tabla payments</div>
+</div>
+</div>
+</div>
+<div id="diagrama-entidad-relación-motor-dbeaver"
+class="section level2">
+<h2>Diagrama entidad-relación Motor dbeaver</h2>
+<p>Una vez creadas todas las tablas, se procede a generar el diagrama
+entidad-relación</p>
+<p>Este diagrama permite visualizar de manera gráfica la estructura de
+la base de datos, mostrando las tablas y las relaciones existentes entre
+ellas mediante llaves primarias y foráneas.</p>
+<p>En el modelo se observa que la tabla <strong>students</strong> actúa
+como entidad principal, relacionándose con <strong>guardians</strong> y
+<strong>enrollments</strong>. A su vez, <strong>enrollments</strong>
+conecta con <strong>groups</strong>, lo que permite ubicar a cada
+estudiante en un grupo específico.</p>
+<p>Las tablas <strong>courses</strong> se relacionan con
+<strong>groups</strong>, y a partir de estas se gestionan procesos
+académicos como la asistencia (<strong>attendances</strong>) y las
+calificaciones (<strong>grades</strong>), las cuales también dependen de
+la matrícula del estudiante.</p>
+<p>Finalmente, la tabla <strong>tuition_payments</strong> se encuentra
+vinculada a <strong>enrollments</strong>, permitiendo llevar el control
+de los pagos asociados a cada estudiante.</p>
+<p>Este diagrama facilita la comprensión del modelo de datos,
+evidenciando la integridad referencial y la correcta organización de las
+entidades dentro del sistema.</p>
+<div id="evidencia-1" class="section level3">
+<h3>Evidencia</h3>
+<div class="float">
+<img src="images/diagrama.png" alt="Diagrama ER" />
+<div class="figcaption">Diagrama ER</div>
+</div>
+</div>
+</div>
+</div>
+<div id="mysql---creación-y-visualización-del-modelo"
+class="section level1">
+<h1>MySQL - Creación y visualización del modelo</h1>
+<div id="inicio-del-entorno" class="section level2">
+<h2>Inicio del entorno</h2>
+<p>Se inicia el servicio de Docker en el sistema Ubuntu con el fin de
+levantar los contenedores que contienen los motores de bases de
+datos.</p>
+<p>Posteriormente, se verifica que el contenedor de MySQL se encuentre
+en ejecución, asegurando que el servicio esté disponible para conexiones
+externas.</p>
+<div class="float">
+<img src="images/server%20msql.png" alt="conexcion" />
+<div class="figcaption">conexcion</div>
+</div>
+<p>Una vez activado el server y sabiendo nuesta ip procedemos a realizar
+la conexion con workbench</p>
+<div class="float">
+<img src="images/conexcion%20work.png" alt="enlace" />
+<div class="figcaption">enlace</div>
+</div>
+<p>luego se muestra el diagrama er para verificar que esta bien la base
+de datos</p>
+<div class="float">
+<img src="images/diagrama%20work.png" alt="Diagrama ER" />
+<div class="figcaption">Diagrama ER</div>
+</div>
+</div>
+</div>
+<div id="postgresql-creación-y-conexión" class="section level1">
+<h1>PostgreSQL — Creación y Conexión</h1>
+<div id="inicio-del-entorno-1" class="section level2">
+<h2>Inicio del entorno</h2>
+<p>Se inicia el contenedor de PostgreSQL utilizando Docker desde el
+entorno Ubuntu, verificando que el servicio se encuentre activo y
+disponible para conexiones externas.</p>
+<pre class="bash"><code>docker start postgres-server
+docker ps</code></pre>
+<div class="float">
+<img src="images/creacion.png" alt="Inicio del contenedor Docker" />
+<div class="figcaption">Inicio del contenedor Docker</div>
+</div>
+<hr />
+</div>
+<div id="conexión-desde-dbeaver" class="section level2">
+<h2>Conexión desde DBeaver</h2>
+<p>Una vez confirmado que el contenedor está en ejecución, se establece
+la conexión a la base de datos desde DBeaver, configurando los
+parámetros del host, puerto y credenciales correspondientes.</p>
+<div class="float">
+<img src="images/dbeaver.png" alt="Conexión en DBeaver" />
+<div class="figcaption">Conexión en DBeaver</div>
+</div>
+<hr />
+</div>
+<div id="diagrama-de-tablas-en-dbeaver" class="section level2">
+<h2>Diagrama de tablas en DBeaver</h2>
+<p>Con la conexión activa, se visualiza el esquema de la base de datos y
+el diagrama de las tablas creadas directamente desde el explorador de
+DBeaver.</p>
+<div class="float">
+<img src="images/tabla%20dbeaver.png"
+alt="Diagrama de tablas en DBeaver" />
+<div class="figcaption">Diagrama de tablas en DBeaver</div>
+</div>
+<hr />
+</div>
+<div id="conexión-desde-pgadmin-4" class="section level2">
+<h2>Conexión desde pgAdmin 4</h2>
+<p>Se realiza adicionalmente la conexión a la misma instancia de
+PostgreSQL utilizando pgAdmin 4, registrando el servidor con los datos
+del contenedor Docker.</p>
+<div class="float">
+<img src="images/enlace%20ph.png" alt="Conexión en pgAdmin 4" />
+<div class="figcaption">Conexión en pgAdmin 4</div>
+</div>
+<hr />
+</div>
+<div id="diagrama-er-en-pgadmin-4" class="section level2">
+<h2>Diagrama ER en pgAdmin 4</h2>
+<p>Finalmente, se genera el diagrama entidad-relación (ER) desde pgAdmin
+4, permitiendo visualizar de forma gráfica la estructura y las
+relaciones entre las tablas de la base de datos.</p>
+<div class="float">
+<img src="images/diagrama%20pg.png" alt="Diagrama ER en pgAdmin 4" />
+<div class="figcaption">Diagrama ER en pgAdmin 4</div>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
