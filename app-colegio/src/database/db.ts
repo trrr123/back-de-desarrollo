@@ -28,6 +28,22 @@ const dbConfigurations: Record<string, DatabaseConfig> = {
     password: process.env.POSTGRES_PASSWORD || "",
     database: process.env.POSTGRES_NAME || "test",
     port: parseInt(process.env.POSTGRES_PORT || "5432")
+  },
+  mssql: {
+    dialect: "mssql",
+    host: process.env.MSSQL_HOST || "localhost",
+    username: process.env.MSSQL_USER || "sa",
+    password: process.env.MSSQL_PASSWORD || "",
+    database: process.env.MSSQL_NAME || "test",
+    port: parseInt(process.env.MSSQL_PORT || "1433")
+  },
+  oracle: {
+    dialect: "oracle",
+    host: process.env.ORACLE_HOST || "localhost",
+    username: process.env.ORACLE_USER || "system",
+    password: process.env.ORACLE_PASSWORD || "",
+    database: process.env.ORACLE_NAME || "xe",
+    port: parseInt(process.env.ORACLE_PORT || "1521")
   }
 };
 
@@ -54,7 +70,13 @@ export const sequelize = new Sequelize(
       min: 0,
       acquire: 30000,
       idle: 10000
-    }
+    },
+    dialectOptions: selectedConfig.dialect === "mssql" ? {
+      options: {
+        encrypt: false,
+        trustServerCertificate: true
+      }
+    } : {}
   }
 );
 

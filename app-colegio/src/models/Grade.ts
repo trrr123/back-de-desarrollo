@@ -66,17 +66,25 @@ Grade.init(
 Enrollment.hasMany(Grade, {
   foreignKey: "enrollment_id",
   sourceKey: "id",
+  onDelete: "NO ACTION",
+  onUpdate: "NO ACTION"
 });
 Grade.belongsTo(Enrollment, {
   foreignKey: "enrollment_id",
   targetKey: "id",
+  onDelete: "NO ACTION",
+  onUpdate: "NO ACTION"
 });
 
 Course.hasMany(Grade, {
   foreignKey: "course_id",
   sourceKey: "id",
+  onDelete: "NO ACTION",
+  onUpdate: "NO ACTION"
 });
 Grade.belongsTo(Course, {
   foreignKey: "course_id",
   targetKey: "id",
+  onDelete: "NO ACTION",
+  onUpdate: "NO ACTION"
 });

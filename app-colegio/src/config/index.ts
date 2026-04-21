@@ -68,7 +68,7 @@ export class App {
         throw new Error(`No se pudo conectar a ${dbInfo.engine.toUpperCase()}`);
       }
 
-      await sequelize.sync({ force: false });
+      await sequelize.sync({ force: false, alter: false });
       console.log(`📦 Base de datos sincronizada exitosamente`);
 
     } catch (error) {

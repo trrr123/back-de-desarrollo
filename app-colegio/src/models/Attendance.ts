@@ -56,17 +56,25 @@ Attendance.init(
 Enrollment.hasMany(Attendance, {
   foreignKey: "enrollment_id",
   sourceKey: "id",
+  onDelete: "NO ACTION",
+  onUpdate: "NO ACTION"
 });
 Attendance.belongsTo(Enrollment, {
   foreignKey: "enrollment_id",
   targetKey: "id",
+  onDelete: "NO ACTION",
+  onUpdate: "NO ACTION"
 });
 
 Course.hasMany(Attendance, {
   foreignKey: "course_id",
   sourceKey: "id",
+  onDelete: "NO ACTION",
+  onUpdate: "NO ACTION"
 });
 Attendance.belongsTo(Course, {
   foreignKey: "course_id",
   targetKey: "id",
+  onDelete: "NO ACTION",
+  onUpdate: "NO ACTION"
 });
