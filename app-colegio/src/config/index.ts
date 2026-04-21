@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express, { Application } from "express";
 import morgan from "morgan";
 var cors = require("cors");
+import studentRoutes from "../routes/student.routes";
 
 dotenv.config();
 
@@ -28,11 +29,11 @@ export class App {
   }
 
   private routes(): void {
-    // Las rutas se configurarán más adelante
+    this.app.use("/api/students", studentRoutes);
   }
 
   private async dbConnection(): Promise<void> {
-    // Conexion, configuracion y sincronizar BD
+    // Luego conectamos Sequelize aquí 🔥
   }
 
   async listen() {
