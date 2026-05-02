@@ -45,9 +45,6 @@ TuitionPayment.init(
     amount: {
       type: DataTypes.DECIMAL(12, 2),
       allowNull: false,
-      validate: {
-        min: 0.01,
-      },
     },
     payment_date: {
       type: DataTypes.DATEONLY,
@@ -60,10 +57,6 @@ TuitionPayment.init(
     period_month: {
       type: DataTypes.SMALLINT,
       allowNull: false,
-      validate: {
-        min: 1,
-        max: 12,
-      },
     },
     period_year: {
       type: DataTypes.SMALLINT,
@@ -82,7 +75,6 @@ TuitionPayment.init(
   }
 );
 
-// Relación
 Enrollment.hasMany(TuitionPayment, {
   foreignKey: "enrollment_id",
   sourceKey: "id",
