@@ -51,12 +51,13 @@ Course.init(
   }
 );
 
-// Relación
 SchoolGroup.hasMany(Course, {
   foreignKey: "group_id",
   sourceKey: "id",
+  constraints: false,
 });
 Course.belongsTo(SchoolGroup, {
   foreignKey: "group_id",
   targetKey: "id",
+  constraints: false,
 });

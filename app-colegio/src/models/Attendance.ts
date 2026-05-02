@@ -48,7 +48,9 @@ Attendance.init(
     sequelize,
     modelName: "Attendance",
     tableName: "attendances",
-    timestamps: false,
+    timestamps: true,
+    createdAt: "created_at",
+    updatedAt: false,
   }
 );
 
