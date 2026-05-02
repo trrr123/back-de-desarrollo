@@ -105,13 +105,13 @@ async function createFakeData() {
 
     // ─── Courses ────────────────────────────────
     const courses = await Course.bulkCreate(
-      groups.flatMap((group: any) =>
-        range(2).map(() => ({
-          name: pick(SUBJECTS),
-          description: faker.lorem.sentence(),
-          teacher: `${faker.person.firstName()} ${faker.person.lastName()}`,
-          group_id: group.id,
-          status: "active",
+  groups.flatMap((group: any) =>
+    faker.helpers.shuffle([...SUBJECTS]).slice(0, 2).map((subject) => ({
+      name: subject,
+      description: faker.lorem.sentence(),
+      teacher: `${faker.person.firstName()} ${faker.person.lastName()}`,
+      group_id: group.id,
+      status: "active",
         }))
       )
     );
