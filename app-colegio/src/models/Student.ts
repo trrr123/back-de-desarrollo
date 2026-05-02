@@ -63,8 +63,10 @@ Student.init(
     },
   },
   {
-    sequelize,
+   sequelize,
     tableName: "students",
-    timestamps: false,
+    timestamps: true,
+    createdAt: "created_at",
+    updatedAt: "updated_at",
   }
 );
