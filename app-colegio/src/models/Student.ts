@@ -12,7 +12,7 @@ export interface StudentI {
   status: "active" | "inactive";
 }
 
-export class Student extends Model {
+export class Student extends Model<StudentI> implements StudentI {
   public id!: number;
   public doc_type!: string;
   public doc_number!: string;
@@ -25,6 +25,11 @@ export class Student extends Model {
 
 Student.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     doc_type: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -32,6 +37,7 @@ Student.init(
     doc_number: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     first_name: {
       type: DataTypes.STRING,
@@ -48,9 +54,11 @@ Student.init(
     email: {
       type: DataTypes.STRING,
       allowNull: true,
+      unique: true,
     },
     status: {
       type: DataTypes.ENUM("active", "inactive"),
+      allowNull: false,
       defaultValue: "active",
     },
   },

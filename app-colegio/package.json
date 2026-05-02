@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@faker-js/faker": "^10.4.0",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
@@ -15,7 +16,8 @@
     "tedious": "^19.2.1"
   },
   "scripts": {
-    "dev": "ts-node-dev src/index.ts"
+    "dev": "ts-node-dev src/index.ts",
+    "faker": "ts-node src/faker/faker.ts"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

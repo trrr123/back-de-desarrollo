@@ -39,7 +39,7 @@ SchoolGroup.init(
   {
     sequelize,
     modelName: "SchoolGroup",
-    tableName: "school_groups",
+    tableName: "groups",
     timestamps: false,
   }
 );
