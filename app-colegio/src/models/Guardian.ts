@@ -68,10 +68,12 @@ Guardian.init(
     },
   },
   {
-    sequelize,
+  sequelize,
     modelName: "Guardian",
     tableName: "guardians",
-    timestamps: false,
+    timestamps: true,
+    createdAt: "created_at",
+    updatedAt: false
   }
 );
 
