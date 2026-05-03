@@ -1,0 +1,53 @@
+@baseUrl = http://localhost:3000
+
+### Obtener todos los acudientes
+GET {{baseUrl}}/api/guardians
+
+###
+
+### Obtener acudiente por ID
+GET {{baseUrl}}/api/guardians/1
+
+###
+
+### Crear acudiente
+POST {{baseUrl}}/api/guardians
+Content-Type: application/json
+
+{
+  "student_id": 9,
+  "doc_type": "CC",
+  "doc_number": "1111111111",
+  "first_name": "Maria",
+  "last_name": "Lopez",
+  "phone": "3001234567",
+  "email": "maria.lopez@test.com",
+  "relationship": "Madre",
+  "status": "active"
+}
+
+###
+
+### Actualizar acudiente
+PUT {{baseUrl}}/api/guardians/1
+Content-Type: application/json
+
+{
+  "first_name": "Maria Actualizada",
+  "status": "active"
+}
+
+###
+
+### Eliminar acudiente fisicamente
+DELETE {{baseUrl}}/api/guardians/1
+
+###
+
+### Eliminar acudiente logicamente
+PUT {{baseUrl}}/api/guardians/1
+Content-Type: application/json
+
+{
+  "status": "inactive"
+}
