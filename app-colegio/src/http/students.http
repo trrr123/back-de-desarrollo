@@ -1,0 +1,56 @@
+### students.http
+
+@baseUrl = http://localhost:3000
+@token = TU_TOKEN_AQUI
+
+### Obtener todos los estudiantes
+GET {{baseUrl}}/api/students
+
+###
+
+### Obtener estudiante por ID
+GET {{baseUrl}}/api/students/1
+
+###
+
+### Crear estudiante
+POST {{baseUrl}}/api/students
+Content-Type: application/json
+
+{
+  "doc_type": "CC",
+  "doc_number": "1234567890",
+  "first_name": "Juan",
+  "last_name": "Pérez",
+  "phone": "3001234567",
+  "email": "juan.perez@test.com",
+  "status": "active"
+}
+
+###
+
+### Actualizar estudiante
+PUT {{baseUrl}}/api/students/1
+Content-Type: application/json
+
+{
+  "first_name": "Juan Actualizado",
+  "last_name": "Pérez",
+  "phone": "3009999999",
+  "status": "active"
+}
+
+###
+
+### Eliminar estudiante físicamente
+DELETE {{baseUrl}}/api/students/1
+
+###
+
+### Eliminar estudiante lógicamente
+PUT {{baseUrl}}/api/students/1
+Content-Type: application/json
+
+{
+  "status": "inactive"
+}
