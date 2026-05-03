@@ -53,8 +53,8 @@ Se crearon las rutas para cada modelo. Las rutas definen los endpoints de la API
 
 Una vez creados los modelos, controladores y rutas, se procedió a probar que todas las rutas respondieran correctamente. Se verificó que el servidor levantara sin errores y que cada endpoint retornara los datos esperados.
 
-![prueba_rutas](./img/prueba de las rutas estan bien.png)
-![prueba_rutas_bien](./img/prueba de rutas bien.png)
+![prueba_rutas](./img/pruebadelasrutasestanbien.png)
+![prueba_rutas_bien](./img/pruebaderutasbien.png)
 
 ---
 
