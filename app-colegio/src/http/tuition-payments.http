@@ -1,0 +1,53 @@
+@baseUrl = http://localhost:3000
+
+### Obtener todos los pagos
+GET {{baseUrl}}/api/tuition-payments
+
+###
+
+### Obtener pago por ID
+GET {{baseUrl}}/api/tuition-payments/1
+
+###
+
+### Crear pago
+POST {{baseUrl}}/api/tuition-payments
+Content-Type: application/json
+
+{
+  "enrollment_id": 1,
+  "reference": "REF123456789",
+  "method": "Efectivo",
+  "amount": 952000,
+  "payment_date": "2025-02-01",
+  "due_date": "2025-03-01",
+  "period_month": 2,
+  "period_year": 2025,
+  "status": "paid"
+}
+
+###
+
+### Actualizar pago
+PUT {{baseUrl}}/api/tuition-payments/1
+Content-Type: application/json
+
+{
+  "status": "paid",
+  "method": "Transferencia"
+}
+
+###
+
+### Eliminar pago fisicamente
+DELETE {{baseUrl}}/api/tuition-payments/1
+
+###
+
+### Eliminar pago logicamente
+PUT {{baseUrl}}/api/tuition-payments/1
+Content-Type: application/json
+
+{
+  "status": "cancelled"
+}
