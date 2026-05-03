@@ -1,0 +1,51 @@
+@baseUrl = http://localhost:3000
+
+### Obtener todas las calificaciones
+GET {{baseUrl}}/api/grades
+
+###
+
+### Obtener calificacion por ID
+GET {{baseUrl}}/api/grades/1
+
+###
+
+### Crear calificacion
+POST {{baseUrl}}/api/grades
+Content-Type: application/json
+
+{
+  "enrollment_id": 1,
+  "course_id": 1,
+  "period": "P1",
+  "score": 8.5,
+  "comments": "Buen desempeno",
+  "status": "published"
+}
+
+###
+
+### Actualizar calificacion
+PUT {{baseUrl}}/api/grades/1
+Content-Type: application/json
+
+{
+  "score": 9.0,
+  "comments": "Excelente desempeno",
+  "status": "published"
+}
+
+###
+
+### Eliminar calificacion fisicamente
+DELETE {{baseUrl}}/api/grades/1
+
+###
+
+### Eliminar calificacion logicamente
+PUT {{baseUrl}}/api/grades/1
+Content-Type: application/json
+
+{
+  "status": "draft"
+}
