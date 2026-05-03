@@ -1,0 +1,48 @@
+@baseUrl = http://localhost:3000
+
+### Obtener todos los grupos
+GET {{baseUrl}}/api/school-groups
+
+###
+
+### Obtener grupo por ID
+GET {{baseUrl}}/api/school-groups/1
+
+###
+
+### Crear grupo
+POST {{baseUrl}}/api/school-groups
+Content-Type: application/json
+
+{
+  "name": "Grupo F",
+  "grade": "5°",
+  "period": "2025",
+  "status": "active"
+}
+
+###
+
+### Actualizar grupo
+PUT {{baseUrl}}/api/school-groups/1
+Content-Type: application/json
+
+{
+  "name": "Grupo F Actualizado",
+  "status": "active"
+}
+
+###
+
+### Eliminar grupo fisicamente
+DELETE {{baseUrl}}/api/school-groups/1
+
+###
+
+### Eliminar grupo logicamente
+PUT {{baseUrl}}/api/school-groups/1
+Content-Type: application/json
+
+{
+  "status": "inactive"
+}
