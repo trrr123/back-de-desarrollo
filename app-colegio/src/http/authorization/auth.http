@@ -1,0 +1,24 @@
+@baseUrl = http://localhost:3000
+
+### Registrar usuario
+POST {{baseUrl}}/api/register
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "email": "admin@colegio.com",
+  "password": "12345678",
+  "is_active": "ACTIVE",
+  "avatar": "avatar.jpg"
+}
+
+###
+
+### Login
+POST {{baseUrl}}/api/login
+Content-Type: application/json
+
+{
+  "email": "admin@colegio.com",
+  "password": "12345678"
+}
