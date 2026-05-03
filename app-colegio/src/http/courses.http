@@ -1,0 +1,49 @@
+@baseUrl = http://localhost:3000
+
+### Obtener todos los cursos
+GET {{baseUrl}}/api/courses
+
+###
+
+### Obtener curso por ID
+GET {{baseUrl}}/api/courses/1
+
+###
+
+### Crear curso
+POST {{baseUrl}}/api/courses
+Content-Type: application/json
+
+{
+  "name": "Matematicas",
+  "description": "Curso de matematicas avanzadas",
+  "teacher": "Juan Perez",
+  "group_id": 1,
+  "status": "active"
+}
+
+###
+
+### Actualizar curso
+PUT {{baseUrl}}/api/courses/1
+Content-Type: application/json
+
+{
+  "name": "Matematicas Actualizado",
+  "status": "active"
+}
+
+###
+
+### Eliminar curso fisicamente
+DELETE {{baseUrl}}/api/courses/1
+
+###
+
+### Eliminar curso logicamente
+PUT {{baseUrl}}/api/courses/1
+Content-Type: application/json
+
+{
+  "status": "inactive"
+}
