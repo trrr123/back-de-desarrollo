@@ -4,7 +4,6 @@ import morgan from "morgan";
 import { sequelize, testConnection, getDatabaseInfo } from "../database/db";
 var cors = require("cors");
 
-// Rutas
 import studentRoutes from "../routes/student.routes";
 import guardianRoutes from "../routes/guardian.routes";
 import schoolGroupRoutes from "../routes/schoolGroup.routes";
@@ -13,8 +12,8 @@ import courseRoutes from "../routes/course.routes";
 import attendanceRoutes from "../routes/attendance.routes";
 import gradeRoutes from "../routes/grade.routes";
 import tuitionPaymentRoutes from "../routes/tuitionPayment.routes";
+import { AuthRoutes } from "../routes/authorization/auth.routes";
 
-// Modelos
 import "../models/Student";
 import "../models/Guardian";
 import "../models/SchoolGroup";
@@ -23,6 +22,7 @@ import "../models/Course";
 import "../models/Attendance";
 import "../models/Grade";
 import "../models/TuitionPayment";
+import "../models/authorization/user";
 
 dotenv.config();
 
@@ -56,21 +56,19 @@ export class App {
     this.app.use("/api/attendances", attendanceRoutes);
     this.app.use("/api/grades", gradeRoutes);
     this.app.use("/api/tuition-payments", tuitionPaymentRoutes);
+    new AuthRoutes().routes(this.app);
   }
 
   private async dbConnection(): Promise<void> {
     try {
       const dbInfo = getDatabaseInfo();
       console.log(`🔗 Conectando a: ${dbInfo.engine.toUpperCase()}`);
-
       const isConnected = await testConnection();
       if (!isConnected) {
         throw new Error(`No se pudo conectar a ${dbInfo.engine.toUpperCase()}`);
       }
-
       await sequelize.sync({ force: false, alter: false });
       console.log(`📦 Base de datos sincronizada exitosamente`);
-
     } catch (error) {
       console.error("❌ Error al conectar con la base de datos:", error);
       process.exit(1);
