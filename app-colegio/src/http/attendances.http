@@ -1,0 +1,39 @@
+@baseUrl = http://localhost:3000
+
+### Obtener todas las asistencias
+GET {{baseUrl}}/api/attendances
+
+###
+
+### Obtener asistencia por ID
+GET {{baseUrl}}/api/attendances/1
+
+###
+
+### Crear asistencia
+POST {{baseUrl}}/api/attendances
+Content-Type: application/json
+
+{
+  "enrollment_id": 1,
+  "course_id": 1,
+  "attend_date": "2025-03-01",
+  "state": "present",
+  "note": "Asistio puntual"
+}
+
+###
+
+### Actualizar asistencia
+PUT {{baseUrl}}/api/attendances/1
+Content-Type: application/json
+
+{
+  "state": "late",
+  "note": "Llego tarde"
+}
+
+###
+
+### Eliminar asistencia fisicamente
+DELETE {{baseUrl}}/api/attendances/1
