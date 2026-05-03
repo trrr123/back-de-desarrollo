@@ -1,0 +1,50 @@
+@baseUrl = http://localhost:3000
+
+### Obtener todas las matriculas
+GET {{baseUrl}}/api/enrollments
+
+###
+
+### Obtener matricula por ID
+GET {{baseUrl}}/api/enrollments/1
+
+###
+
+### Crear matricula
+POST {{baseUrl}}/api/enrollments
+Content-Type: application/json
+
+{
+  "student_id": 9,
+  "group_id": 1,
+  "enrollment_date": "2025-01-20",
+  "subtotal": 800000,
+  "tax": 152000,
+  "total": 952000,
+  "status": "active"
+}
+
+###
+
+### Actualizar matricula
+PUT {{baseUrl}}/api/enrollments/1
+Content-Type: application/json
+
+{
+  "status": "active"
+}
+
+###
+
+### Eliminar matricula fisicamente
+DELETE {{baseUrl}}/api/enrollments/1
+
+###
+
+### Eliminar matricula logicamente
+PUT {{baseUrl}}/api/enrollments/1
+Content-Type: application/json
+
+{
+  "status": "cancelled"
+}
